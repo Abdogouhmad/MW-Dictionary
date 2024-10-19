@@ -14,4 +14,15 @@ var light = ThemeData(
   brightness: Brightness.light,
   useMaterial3: true,
 );
-var dark = ThemeData();
+var dark = ThemeData(
+  colorScheme: ColorScheme.fromSeed(
+    seedColor: darkAppBackgroundColor,
+    brightness: Brightness.dark,
+  ).copyWith(
+    surface: lightBackgroundColor,
+    onPrimary: Colors.white,
+  ),
+  scaffoldBackgroundColor: darkAppBackgroundColor,
+  brightness: Brightness.dark,
+  useMaterial3: true,
+);

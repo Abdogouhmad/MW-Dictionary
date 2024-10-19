@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: light,
-      // darkTheme: dark,
+      darkTheme: dark,
       themeMode: ThemeMode.system,
       home: const MyHomePage(),
     );
@@ -31,20 +31,21 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 40.0),
+              padding: const EdgeInsets.only(top: 40.0),
               child: Text(
                 'MW-Dictionary',
                 style: TextStyle(
                   fontSize: 40.0,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'RobotoCondensed',
-                  color: primaryColor,
+                  color: isDarkMode ? lightBrown : theBrowm,
                 ),
               ),
             ),
