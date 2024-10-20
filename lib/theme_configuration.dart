@@ -4,25 +4,25 @@ import './colorpalette.dart';
 // theme configuration
 var light = ThemeData(
   colorScheme: ColorScheme.fromSeed(
-    seedColor: appBackgroundColor,
+    seedColor: lightBackgroundColor,
     brightness: Brightness.light,
   ).copyWith(
     surface: lightBackgroundColor,
     onPrimary: Colors.white,
   ),
-  scaffoldBackgroundColor: appBackgroundColor,
+  scaffoldBackgroundColor: lightBackgroundColor,
   brightness: Brightness.light,
   useMaterial3: true,
 );
 var dark = ThemeData(
   colorScheme: ColorScheme.fromSeed(
-    seedColor: darkAppBackgroundColor,
+    seedColor: darkBackgroundColor,
     brightness: Brightness.dark,
   ).copyWith(
     surface: lightBackgroundColor,
     onPrimary: Colors.white,
   ),
-  scaffoldBackgroundColor: darkAppBackgroundColor,
+  scaffoldBackgroundColor: darkBackgroundColor,
   brightness: Brightness.dark,
   useMaterial3: true,
 );
