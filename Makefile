@@ -30,17 +30,17 @@ get_deps:
 # Run the app in release mode
 .PHONY: run
 run:
-	$(FLUTTER) run --release
+	$(FLUTTER) run 
 
 # Build APK for Android
 .PHONY: build_apk
 build_apk:
-	$(FLUTTER) build apk --release
+	$(FLUTTER) build apk 
 
 # Build for iOS (macOS only)
 .PHONY: build_ios
 build_ios:
-	$(FLUTTER) build ios --release
+	$(FLUTTER) build ios 
 
 # Clean build files
 .PHONY: clean

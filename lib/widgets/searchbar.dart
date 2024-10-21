@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import '../colorpalette.dart';
 
 class SearchBarWidget extends StatelessWidget {
@@ -31,18 +30,6 @@ class SearchBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-    // configuration of system ui
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: isDarkMode ? darkBackgroundColor : lightBackgroundColor,
-        systemNavigationBarColor:
-            isDarkMode ? darkBackgroundColor : lightBackgroundColor,
-        systemNavigationBarIconBrightness:
-            isDarkMode ? Brightness.light : Brightness.dark,
-        statusBarIconBrightness:
-            isDarkMode ? Brightness.light : Brightness.dark,
-      ),
-    );
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),

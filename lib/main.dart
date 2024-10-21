@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mwd/widgets/card.dart';
 import './widgets/searchbar.dart';
 import './theme_configuration.dart';
 import './colorpalette.dart';
@@ -80,6 +81,9 @@ class _MyHomePageState extends State<MyHomePage> {
               hintTextWidget: "Search Dictionary",
               onSubmit: checkInput, // Pass the function reference
             ),
+
+            // card
+            const CardWidget()
           ],
         ),
       ),

@@ -14,3 +14,10 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## TODOS
+-[ ] create a word service
+-[ ] create a time to fetch a word of day --> cache it for a day
+-[ ] create a figma design for dictionary display.
+-[ ] start think about error handling on the interface (if needed)
+-[ ] change splash screen + icon app

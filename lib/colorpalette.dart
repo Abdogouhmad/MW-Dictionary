@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 const Color lightBackgroundColor = Color(0xFFFBF1C7); // #FBF1C7
 const Color lightCardBg = Color(0xFFEBDBB2); // #EBDBB2
 const Color primaryTextLight = Color(0xFF3C3836); // #3C3836
-const Color secondaryLightColor = Color(0xFF7C6F64); // #7C6F64
+const Color secondaryTextLight = Color(0xFF7C6F64); // #7C6F64
 const Color lightAccentTextColor = Color(0xFFD79921); // #D79921
 const Color lightTitlesAndIcons = Color(0xFFD65D0E); // #D65D0E
 const Color borderColorLight = Color(0xFFB57614); // #B57614
