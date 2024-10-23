@@ -1,9 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:mwd/colorpalette.dart';
 import 'package:mwd/components/text.dart';
+import 'package:mwd/services/wordofday.dart';
 
-class CardWidget extends StatelessWidget {
+class CardWidget extends StatefulWidget {
   const CardWidget({super.key});
+
+  @override
+  createState() => _CardWidgetState();
+}
+
+class _CardWidgetState extends State<CardWidget> {
+  late String wordOfTheDay = "";
+  late String partOfSpch = "";
+  late String phonetics = "";
+  late String definition = ""; // NOTE: possible a list of strings
+  late String example = ""; // NOTE: possible a list of strings
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchWordOfTheDay();
+  }
+
+  Future<void> _fetchWordOfTheDay() async {
+    try {
+      RandomWord wordGenerator = RandomWord();
+      String word = await wordGenerator.getRandomWord();
+      setState(() {
+        wordOfTheDay = word;
+      });
+      debugPrint('Fetched word: $wordOfTheDay');
+    } catch (e) {
+      debugPrint('Error fetching word: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +64,7 @@ class CardWidget extends StatelessWidget {
                 ftcolor: wordTextColor,
               ),
               const SizedBox(height: 10),
-              // Zest - noun
+              // Word of the day
               RichText(
                 text: TextSpan(
                   style: TextStyle(
@@ -42,7 +73,7 @@ class CardWidget extends StatelessWidget {
                   ),
                   children: [
                     AppText.textSpan(
-                      "Zest ",
+                      wordOfTheDay, // Display the fetched word
                       font: "PlayfairDisplay",
                       sizefont: 20,
                       ftweight: FontWeight.w600,

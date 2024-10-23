@@ -6,6 +6,8 @@ FLUTTER = flutter
 DART = dart
 ADB = adb
 
+PATH_TO_BK=./lib/services
+TEST1 = /wordofday.dart
 # Default target when no arguments are given to make
 .PHONY: help
 help:
@@ -21,6 +23,7 @@ help:
 	@echo "  make logs            - Show logs from the connected device"
 	@echo "  make install_apk     - Install APK to connected Android device"
 	@echo "  make uninstall_apk   - Uninstall APK from connected Android device"
+	@echo "  make run_test        - test backend"
 
 # Fetch project dependencies
 .PHONY: get_deps
@@ -77,3 +80,8 @@ install_apk: build_apk
 .PHONY: uninstall_apk
 uninstall_apk:
 	$(ADB) uninstall $(APP_NAME)
+
+# test backend $(DART) $(PATH_TO_BK)$(TEST1)
+.PHONY: run_test
+run_test:
+	$(DART) run $(PATH_TO_BK)$(TEST1)
