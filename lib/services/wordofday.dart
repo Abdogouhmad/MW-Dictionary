@@ -2,30 +2,20 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-// Test version of the service that uses flutter_dotenv
 class RandomWord {
   static const baseUrlWord = "https://api.api-ninjas.com/v1/randomword";
   late final String apiKey;
   late final String apiUrl;
 
-  void _wordServiceTest() {
+  RandomWord() {
     apiKey = dotenv.env['WORD'] ?? 'API_KEY_NOT_FOUND';
     apiUrl = dotenv.env['MWD_API'] ?? 'API_KEY_NOT_FOUND';
-    if (apiKey == 'API_KEY_NOT_FOUND' && apiUrl == 'API_KEY_NOT_FOUND') {
-      throw Exception('WORD API key not found in .env file');
+    if (apiKey == 'API_KEY_NOT_FOUND' || apiUrl == 'API_KEY_NOT_FOUND') {
+      throw Exception('API key or URL not found in .env file');
     }
   }
 
-  void _prettyPrintJson(String input) {
-    const JsonDecoder decoder = JsonDecoder();
-    const JsonEncoder encoder = JsonEncoder.withIndent('  ');
-    final dynamic object = decoder.convert(input);
-    final dynamic prettyString = encoder.convert(object);
-    prettyString.split('\n').forEach((dynamic element) => print(element));
-  }
-
   Future<String> getRandomWord() async {
-    _wordServiceTest();
     try {
       final response = await http.get(
         Uri.parse(baseUrlWord),
@@ -49,28 +39,26 @@ class RandomWord {
     }
   }
 
-  // define generated word
   Future<Map<String, dynamic>> defineRandomWord() async {
-    _wordServiceTest();
+    final String word = await getRandomWord();
+    final String url = "$apiUrl/$word";
 
     try {
-      final response = await http.get(Uri.parse(apiUrl));
-      // _prettyPrintJson(response.body);
+      final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
-        // parse the json
         final Map<String, dynamic> data = jsonDecode(response.body);
-        // check the data if it has data as a key
         if (data.containsKey('data') &&
             data['data'] is List &&
             data['data'].isNotEmpty) {
-          // greb the 1st array
           final Map<String, dynamic> result = data['data'][0];
           if (result['definition']['app-shortdef'] is Map<String, dynamic> &&
               result['ipa'] is Map<String, dynamic> &&
               result['definition']['app-shortdef']['def'] is List) {
             final Map<String, dynamic> def = {
+              'word': word,
               'partofspch': result['definition']['app-shortdef']['fl'],
-              'def': result['definition']['app-shortdef']['def'],
+              'def': List<String>.from(
+                  result['definition']['app-shortdef']['def']),
               'ipa': result['ipa']['prs'] is List &&
                       result['ipa']['prs'].isNotEmpty
                   ? result['ipa']['prs'][0]['ipa']
@@ -95,18 +83,3 @@ class RandomWord {
     }
   }
 }
-
-// Future<void> main() async {
-//   // Load environment variables from .env file
-//   await dotenv.load(fileName: ".env");
-
-//   final randomWordService = RandomWord();
-
-//   try {
-//     // Fetch the example
-//     await randomWordService.defineRandomWord();
-//     // print("Example is: $definition");
-//   } catch (e) {
-//     print("Error: $e");
-//   }
-// }
