@@ -19,7 +19,7 @@ var dark = ThemeData(
     seedColor: darkBackgroundColor,
     brightness: Brightness.dark,
   ).copyWith(
-    surface: lightBackgroundColor,
+    surface: darkBackgroundColor,
     onPrimary: Colors.white,
   ),
   scaffoldBackgroundColor: darkBackgroundColor,
