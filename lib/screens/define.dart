@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mwd/colorpalette.dart';
 import 'package:mwd/components/text.dart';
+import 'dart:io' as platform;
 
 class DefinePage extends StatefulWidget {
   final String word;
@@ -12,20 +13,32 @@ class DefinePage extends StatefulWidget {
 }
 
 class _DefinePageState extends State<DefinePage> {
-  @override
-  Widget build(BuildContext context) {
+  PreferredSizeWidget? _checkPlatform() {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final barColor = isDarkMode ? primaryTextDark : primaryTextLight;
-    return Scaffold(
-      appBar: AppBar(
+
+    if (platform.Platform.isLinux ||
+        platform.Platform.isMacOS ||
+        platform.Platform.isWindows) {
+      return AppBar(
         title: AppText.text(
-          "Definition of ${widget.word}",
+          "Home",
           font: "Roboto",
           sizefont: 20,
           ftweight: FontWeight.w500,
           ftcolor: barColor,
         ),
-      ),
+      );
+    } else {
+      // Return null if the platform is Android or iOS
+      return null; // or you could return a SizedBox if you want a placeholder
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: _checkPlatform(), // Call the method
       body: Center(
         child: AppText.text(
           widget.word,
