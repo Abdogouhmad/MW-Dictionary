@@ -35,6 +35,16 @@ class _DefinePageState extends State<DefinePage> {
     }
   }
 
+  // TODO: widget combines (word, part of spch, IPA, sound)
+  Widget _wordData() {
+    return Container();
+  }
+
+  // TODO: widget combines (definition,  example(divider & text))
+  Widget _WordDefine() {
+    return Container();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
