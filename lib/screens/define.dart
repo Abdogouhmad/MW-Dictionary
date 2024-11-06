@@ -30,32 +30,160 @@ class _DefinePageState extends State<DefinePage> {
         ),
       );
     } else {
-      // Return null if the platform is Android or iOS
-      return null; // or you could return a SizedBox if you want a placeholder
+      return null;
     }
   }
 
-  // TODO: widget combines (word, part of spch, IPA, sound)
-  Widget _wordData() {
-    return Container();
+  // Widget that combines word, part of speech, IPA, and sound button
+  Widget _wordData(BuildContext ctx) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final wordColored = isDarkMode ? primaryTextDark : primaryTextLight;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                AppText.text(
+                  "Dilemma",
+                  font: "Playfairdisplay",
+                  sizefont: 30,
+                  ftcolor: wordColored,
+                  ftweight: FontWeight.w700,
+                  selectable: true,
+                ),
+                AppText.text(
+                  " . Noun",
+                  ftcolor: blueColor,
+                  font: "Playfairdisplay",
+                  sizefont: 30,
+                  ftweight: FontWeight.w700,
+                  selectable: true,
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: AppText.text(
+                "di·​lem·​ma",
+                font: "Roboto",
+                sizefont: 20.0,
+                ftcolor: yellowColor,
+                ftweight: FontWeight.w500,
+                selectable: true,
+              ),
+            ),
+          ],
+        ),
+        IconButton(
+          onPressed: () {
+            debugPrint("Pressed Listen");
+          },
+          tooltip: "listen to word: ${widget.word}",
+          iconSize: 20.0,
+          color: Colors.orange,
+          icon: const Icon(Icons.volume_up),
+        ),
+      ],
+    );
   }
 
-  // TODO: widget combines (definition,  example(divider & text))
-  Widget _WordDefine() {
-    return Container();
+  // Widget that combines definition, example, and numbering
+  Widget _wordDefine(
+      BuildContext ctx, String definition, String example, int number) {
+    final isDarkMode = Theme.of(ctx).brightness == Brightness.dark;
+    final defColor = isDarkMode ? primaryTextDark : primaryTextLight;
+    final exmplColor = isDarkMode ? secondaryTextDark : secondaryTextLight;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        RichText(
+          text: TextSpan(
+            text: '$number. ', // Dynamic numbering
+            style: TextStyle(fontSize: 20, color: defColor),
+            children: [
+              AppText.textSpan(
+                definition,
+                font: "Roboto",
+                sizefont: 20,
+                ftweight: FontWeight.w500,
+                ftcolor: defColor,
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 8),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(width: 8),
+            Container(
+              width: 4, // Width of the line
+              height: 55, // Adjust height as needed
+              color: redColor, // Color of the line
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: AppText.text(
+                  example,
+                  font: "Roboto",
+                  sizefont: 18,
+                  ftweight: FontWeight.w300,
+                  ftcolor: exmplColor,
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 10),
+      ],
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    // Define platform-specific padding
+    EdgeInsets platformPadding = (platform.Platform.isLinux ||
+            platform.Platform.isMacOS ||
+            platform.Platform.isWindows)
+        ? const EdgeInsets.all(30.0)
+        : const EdgeInsets.only(top: 30.0, left: 10.0);
+
+    // Dictionary data
+    final Map<String, List<String>> dictionary = {
+      "definitions": [
+        "a usually undesirable or unpleasant choice",
+        "a problem involving a difficult choice"
+      ],
+      "examples": [
+        "faces this dilemma: raise interest rates and slow the economy or lower them and risk serious inflation",
+        "the dilemma of \"liberty versus order\"\n— J. M. Burns"
+      ]
+    };
+
     return Scaffold(
-      appBar: _checkPlatform(), // Call the method
+      appBar: _checkPlatform(),
       body: Center(
-        child: AppText.text(
-          widget.word,
-          font: "Playfairdisplay",
-          sizefont: 30,
-          ftweight: FontWeight.w700,
-          ftcolor: greenColor,
+        child: Padding(
+          padding: platformPadding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _wordData(context),
+              const SizedBox(height: 20),
+              for (int i = 0; i < dictionary['definitions']!.length; i++)
+                _wordDefine(
+                  context,
+                  dictionary['definitions']![i],
+                  dictionary['examples']![i],
+                  i + 1,
+                ),
+            ],
+          ),
         ),
       ),
     );
