@@ -103,12 +103,13 @@ class _DefinePageState extends State<DefinePage> {
         RichText(
           text: TextSpan(
             text: '$number. ', // Dynamic numbering
-            style: TextStyle(fontSize: 20, color: defColor),
+            style: TextStyle(
+                fontSize: 18, color: defColor, fontWeight: FontWeight.w500),
             children: [
               AppText.textSpan(
                 definition,
                 font: "Roboto",
-                sizefont: 20,
+                sizefont: 18,
                 ftweight: FontWeight.w500,
                 ftcolor: defColor,
               ),
@@ -116,28 +117,30 @@ class _DefinePageState extends State<DefinePage> {
           ),
         ),
         const SizedBox(height: 8),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(width: 8),
-            Container(
-              width: 4, // Width of the line
-              height: 55, // Adjust height as needed
-              color: redColor, // Color of the line
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: AppText.text(
-                  example,
-                  font: "Roboto",
-                  sizefont: 18,
-                  ftweight: FontWeight.w300,
-                  ftcolor: exmplColor,
+        IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(width: 8),
+              Container(
+                width: 2.5, // Width of the line
+                color: redColor,
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: AppText.text(
+                    example,
+                    font: "Roboto",
+                    sizefont: 15,
+                    ftweight: FontWeight.w400,
+                    ftcolor: exmplColor,
+                    selectable: true,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         const SizedBox(height: 10),
       ],
@@ -151,7 +154,7 @@ class _DefinePageState extends State<DefinePage> {
             platform.Platform.isMacOS ||
             platform.Platform.isWindows)
         ? const EdgeInsets.all(30.0)
-        : const EdgeInsets.only(top: 30.0, left: 10.0);
+        : const EdgeInsets.only(top: 50.0, right: 15, left: 15);
 
     // Dictionary data
     final Map<String, List<String>> dictionary = {
